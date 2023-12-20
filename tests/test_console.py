@@ -21,9 +21,6 @@ class TestHBNBCommand(unittest.TestCase):
     """
     @unittest.skipIf(
         os.getenv('HBNB_TYPE_STORAGE') == 'db', 'FileStorage test')
-
-    @unittest.skipIf(
-        os.getenv('HBNB_TYPE_STORAGE') != 'db', 'DBStorage test')
     def test_db_create(self):
         """Tests the create command with the database storage.
         """
