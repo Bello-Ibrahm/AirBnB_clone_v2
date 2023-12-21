@@ -7,6 +7,7 @@ from uuid import UUID
 import json
 import os
 
+
 @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
                  'basemodel test not supported')
 class test_basemodel(unittest.TestCase):
@@ -163,7 +164,6 @@ class test_basemodel(unittest.TestCase):
         """ testing created at attr"""
         new = self.value()
         self.assertEqual(type(new.created_at), datetime)
-
 
     '''def test_updated_at(self):
         """ testing updated at attr"""
