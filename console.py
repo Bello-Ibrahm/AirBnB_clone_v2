@@ -120,7 +120,7 @@ class HBNBCommand(cmd.Cmd):
         """
         try:
             if not args:
-                raise SyntaxError()
+                raise SyntaxError("** class name missing **")
             arg_list = args.split(" ")
             kw = {}
             for arg in arg_list[1:]:
@@ -129,13 +129,14 @@ class HBNBCommand(cmd.Cmd):
                 if type(a_s[1]) is str:
                     a_s[1] = a_s[1].replace("_", " ").replace('"', '\\"')
                 kw[a_s[0]] = a_s[1]
-        except SyntaxError:
-            print("** class name missing **")
+        except SyntaxError as e:
+            print(e)
         except NameError:
             print("** class doesn't exist **")
-        new_instance = HBNBCommand.classes[arg_list[0]](**kw)
-        new_instance.save()
-        print(new_instance.id)
+        else:
+            new_instance = HBNBCommand.classes[arg_list[0]](**kw)
+            new_instance.save()
+            print(new_instance.id)
 
     def help_create(self):
         """ Help information for the create method """
@@ -198,7 +199,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del storage.all()[key]
             storage.save()
         except KeyError:
             print("** no instance found **")
