@@ -22,7 +22,6 @@ def do_pack():
 def do_deploy(archive_path):
     """ Deploy archive to server """
     if (path.isfile(archive_path) is False):
-        print("Not a file")
         return False
     fd = archive_path.split("/")[1]
     try:
@@ -39,7 +38,6 @@ def do_deploy(archive_path):
         print("New version deployed!")
         return True
     except:
-        print("Deployment failed!")
         return False
 
 
