@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-
 from fabric.api import env, run, put
+from os import path
 
 env.hosts = ["54.144.134.116", "54.144.150.121"]
 env.user = "ubuntu"
@@ -9,6 +9,9 @@ env.key_filename = "~/.ssh/id_rsa"
 
 def do_deploy(archive_path):
     """ Deploy archive to server """
+    if not (path.exists(archive_path)):
+        print("Path error")
+        return False
     fd = archive_path.split("/")[1]
     try:
         put(archive_path, "/tmp/{}".format(fd))
