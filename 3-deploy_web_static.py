@@ -14,14 +14,22 @@ def do_pack():
         file = "web_static_" + datetime.now().strftime("%Y%m%d%H%M%S")
         local('mkdir -p versions')
         local("tar -cvzf versions/{}.tgz {}".format(file, "web_static/"))
-        return "versions/{}.tgz".format(file)
-    except:
+        return ("versions/{}.tgz".format(file))
+    except Exception:
         return None
 
 
 def do_deploy(archive_path):
-    """ Deploy archive to server """
+    """ Deploy archive to server
+
+    Args:
+        archive_path(str): the path of the archive to distribute
+    Returns:
+        if file doesn't exists - False,
+        otherwise - True.
+    """
     if (path.isfile(archive_path) is False):
+        print("Not a file")
         return False
     fd = archive_path.split("/")[1]
     try:
@@ -37,7 +45,8 @@ def do_deploy(archive_path):
         /data/web_static/current".format(fd))
         print("New version deployed!")
         return True
-    except:
+    except Exception:
+        print("Deployment failed!")
         return False
 
 
@@ -45,5 +54,6 @@ def deploy():
     """ Creates and distribute the archive to a web server """
     p_file = do_pack()
     if p_file is None:
-        return False
-    return do_deploy(p_file)
+        print("Error packing files")
+        return (False)
+    return (do_deploy(p_file))
