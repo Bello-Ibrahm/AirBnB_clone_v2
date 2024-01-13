@@ -31,7 +31,7 @@ def do_deploy(archive_path):
     if (path.isfile(archive_path) is False):
         print("Not a file")
         return False
-    
+
     try:
         fd = archive_path.split("/")[1]
         put(archive_path, "/tmp/{}".format(fd))
