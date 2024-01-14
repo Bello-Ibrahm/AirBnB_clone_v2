@@ -53,8 +53,8 @@ def do_deploy(archive_path):
 
 def deploy():
     """ Creates and distribute the archive to a web server """
-    p_file = do_pack()
-    if p_file is None:
-        print("Error packing files")
-        return (False)
-    return (do_deploy(p_file))
+    try:
+        p_file = do_pack()
+        return do_deploy(p_file)
+    except:
+        return False
