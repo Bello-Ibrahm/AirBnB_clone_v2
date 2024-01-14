@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-from fabric.api import env, run, lcd, cd, local
-from os import listdir
+from fabric.api import env, run, local
 
 env.hosts = ["54.144.134.116", "54.144.150.121"]
 env.user = "ubuntu"
@@ -18,16 +17,8 @@ def do_clean(number=0):
     if number is 2, keep the most recent,
     and second most recent versions of your archive. etc.
     """
-    numb = 1 if int(number) == 0 else int(number)
+    number = 2 if int(number) == 0 or int(number) == 1 else int(number)
 
-    arc_files = sorted(listdir("versions"))
-    [arc_files.pop() for i in range(numb)]
-
-    with lcd("versions"):
-        [local("rm ./{}".format(x)) for x in arc_files]
-
-    with cd("/data/web_static/releases"):
-        arc_files = run("ls -tr").split()
-        arc_files = [x for x in arc_files if "wewb_static_" in x]
-        [arc_files.pop() for y in range(numb)]
-        [run("rm -rf ./{}".format(x) for x in arc_files)]
+    local('cd versions ; ls -t | tail -n +{} | xargs rm -rf'.format(number))
+    path = '/data/web_static/releases'
+    run('cd {} ; ls -t | tail -n +{} | xargs rm -rf'.format(path, number))
