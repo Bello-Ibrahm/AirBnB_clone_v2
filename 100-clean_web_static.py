@@ -17,7 +17,13 @@ def do_clean(number=0):
     if number is 2, keep the most recent,
     and second most recent versions of your archive. etc.
     """
-    number = 2 if int(number) == 0 else int(number)
+    # number = 2 if int(number) == 0 else int(number)
+    number = int(number)
+
+    if number == 0:
+        number = 2
+    else:
+        number += 1
 
     local('cd versions ; ls -t | tail -n +{} | xargs rm -rf'.format(number))
     path = '/data/web_static/releases'
