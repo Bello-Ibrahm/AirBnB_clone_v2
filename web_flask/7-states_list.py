@@ -13,7 +13,7 @@ def states_list():
     """ Display a HTML page: (inside the tag BODY
     with the list of all State objects
     present in DBStorage sorted by name (A->Z)"""
-    return (render_template('7-states_list.html', states=storage.all(States).values()))
+    return render_template('7-states_list.html', states=storage.all(States))
 
 
 @app.teardown_appcontext
