@@ -9,13 +9,13 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 
-@app.route('/states_list')
-def states_list():
+@app.route('/cities_by_states')
+def cities_by_states():
     """ Display a HTML page: (inside the tag BODY
-    with the list of all State objects
-    present in DBStorage sorted by name (A->Z)"""
-    states = storage.all()
-    return render_template('7-states_list.html', states=states)
+    with the list of City objects linked to the State
+    sorted by name(A->Z)"""
+    states = storage.all(State)
+    return render_template('8-cities_by_states.html', states=states)
 
 
 @app.teardown_appcontext
